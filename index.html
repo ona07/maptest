@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Vis.js Network Example</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network@9.0.1/dist/vis-network.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #network {
+            width: 80vw;
+            height: 80vh;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="network"></div>
+    <script>
+        var nodes = new vis.DataSet([
+            { id: "main", group: "center", label: "project" },
+            { id: "stu", group: "roll", label: "学生メンバー" },
+            { id: "stu1", group: "member", label: "member1" },
+            { id: "stu2", group: "member", label: "member2" },
+            { id: "stu3", group: "member", label: "member3" },
+            { id: "stu4", group: "member", label: "member4" },
+            { id: "stu5", group: "member", label: "member5" },
+            { id: "stu6", group: "member", label: "member6" },
+            { id: "pro", group: "roll", label: "仕入れ先" },
+            { id: "pro1", group: "producer", label: "producer1" },
+            { id: "pro2", group: "producer", label: "producer2" },
+            { id: "pro3", group: "producer", label: "producer3" },
+            { id: "pro4", group: "producer", label: "producer4" },
+            { id: "pro5", group: "producer", label: "producer5" },
+            { id: "menu", group: "roll", label: "メニュー" },
+            { id: "menu1", group: "menuitem", label: "menu1" },
+            { id: "menu2", group: "menuitem", label: "menu2" },
+            { id: "menu3", group: "menuitem", label: "menu3" }
+        ]);
+
+        var edges = new vis.DataSet([
+            { from: "main", to: "stu" },
+            { from: "stu1", to: "stu" },
+            { from: "stu2", to: "stu" },
+            { from: "stu3", to: "stu" },
+            { from: "stu4", to: "stu" },
+            { from: "stu5", to: "stu" },
+            { from: "stu6", to: "stu" },
+            { from: "main", to: "pro" },
+            { from: "pro1", to: "pro" },
+            { from: "pro2", to: "pro" },
+            { from: "pro3", to: "pro" },
+            { from: "pro4", to: "pro" },
+            { from: "pro5", to: "pro" },
+            { from: "main", to: "menu" },
+            { from: "menu1", to: "menu" },
+            { from: "menu2", to: "menu" },
+            { from: "menu3", to: "menu" }
+        ]);
+
+        var data = { nodes: nodes, edges: edges };
+
+        var options = {
+            autoResize: true,
+            nodes: {
+                borderWidth: 1,
+                shape: 'dot',
+                size: 20,
+                font: {
+                    size: 14
+                },
+                color: {
+                    border: '#222222',
+                    background: '#666666',
+                    highlight: {
+                        border: '#ff4444',
+                        background: '#ffaaaa'
+                    }
+                }
+            },
+            groups: {
+                center: {
+                    shape: 'star',
+                    color: {
+                        background: 'gold',
+                        border: 'black'
+                    }
+                },
+                roll: {
+                    shape: 'ellipse',
+                    color: {
+                        background: 'lightblue',
+                        border: 'blue'
+                    }
+                },
+                member: {
+                    shape:"triangle",
+                    color: {
+                        background: 'red',
+                        border: 'white'
+                    }
+                },
+                producer: {
+                    color: {
+                        background: 'green',
+                        border: 'darkgreen'
+                    }
+                },
+                menuitem: {
+                    shape: 'box',
+                    color: {
+                        background: 'yellow',
+                        border: 'violet'
+                    }
+                }
+            },
+            edges: {
+                color: '#999999',
+                smooth: true
+            },
+            layout: {
+                improvedLayout: true
+            },
+            physics: {
+                enabled: true
+            }
+        };
+
+        var container = document.getElementById("network");
+        var network = new vis.Network(container, data, options);
+    </script>
+</body>
+</html>
